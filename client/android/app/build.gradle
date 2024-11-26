@@ -1,0 +1,54 @@
+plugins {
+    id "com.android.application"
+    id "kotlin-android"
+    id "dev.flutter.flutter-gradle-plugin"
+}
+
+android {
+    namespace = "com.example.client"
+    compileSdk = 34 // Cập nhật compileSdk lên phiên bản 34 để tương thích với các thư viện mới
+
+    ndkVersion = "21.4.707559" // NDK có thể tùy chỉnh theo yêu cầu của dự án
+
+    compileOptions {
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
+    }
+
+    kotlinOptions {
+        jvmTarget = "17"
+    }
+
+    defaultConfig {
+        applicationId = "com.example.client"
+        minSdk = 21 // Đảm bảo minSdk phù hợp với yêu cầu của ứng dụng
+        targetSdk = 34 // Đồng bộ với compileSdk
+        versionCode = 1
+        versionName = "1.0"
+    }
+
+    signingConfigs {
+        release {
+            storeFile file("key-store-path/keystore.jks") // Đảm bảo đường dẫn keystore đúng
+            storePassword "your-store-password"
+            keyAlias "your-key-alias"
+            keyPassword "your-key-password"
+        }
+    }
+
+    buildTypes {
+        release {
+            signingConfig = signingConfigs.release
+            minifyEnabled true // Kích hoạt Proguard để tối ưu hóa mã nguồn
+            shrinkResources true // Giảm dung lượng tài nguyên
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro' // Thêm file cấu hình proguard
+        }
+        debug {
+            signingConfig = signingConfigs.debug
+        }
+    }
+}
+
+flutter {
+    source = "../.." // Đảm bảo rằng đường dẫn này là chính xác đối với dự án của bạn
+}
