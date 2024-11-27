@@ -14,8 +14,7 @@ part 'chat_page_dart_state.dart';
 class ChatPageDartBloc extends Bloc<ChatPageDartEvent, ChatPageDartState> {
   ChatPageDartBloc() : super(ChatPageDartInitial()) {
     on<ChatNewPromptEvent>(chatNewPromptEvent);
-    on<ChatNewContentGeneratedEvent>(ChatNewContentGeneratedEvent
-        as EventHandler<ChatNewContentGeneratedEvent, ChatPageDartState>);
+    on<ChatNewContentGeneratedEvent>(chatNewContentGeneratedEvent);
   }
 
   StreamSubscription<http.Response>? subscription;
